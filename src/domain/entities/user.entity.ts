@@ -1,6 +1,7 @@
 import { pbkdf2Sync, randomUUID } from 'crypto';
 import { InvalidEmail, InvalidPasswordLength } from '../exceptions';
 import { UserPayloadIn } from './in';
+import { UserPayloadOut } from './out';
 
 export class UserEntity {
   private id: string;
@@ -71,6 +72,15 @@ export class UserEntity {
       ).toString('hex');
       return hashedPassword;
     }
+  }
+
+  public returnFields(): UserPayloadOut {
+    return {
+      id: this.getId,
+      email: this.getEmail,
+      name: this.getName,
+      password: this.getPassword,
+    };
   }
 
   public newUser(userData: UserPayloadIn) {
