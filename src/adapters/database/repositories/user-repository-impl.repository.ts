@@ -10,12 +10,7 @@ export class UserRepositoryImpl implements UserRepositoryPort {
   async save(userData: UserEntity): Promise<UserPayloadOut> {
     try {
       const user = await this.userDBConnection.create({
-        data: {
-          email: userData.getEmail,
-          password: userData.getPassword,
-          id: userData.getId,
-          name: userData.getName,
-        },
+        data: userData.returnFields(),
       });
       return user;
     } catch (error) {
