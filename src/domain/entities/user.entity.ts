@@ -1,9 +1,5 @@
 import { pbkdf2Sync, randomUUID } from 'crypto';
-import {
-  InvalidEmail,
-  InvalidPasswordLength,
-  NotFilledFieldsException,
-} from '../exceptions';
+import { InvalidEmail, InvalidPasswordLength } from '../exceptions';
 import { UserPayloadIn } from './in';
 import { UserPayloadOut } from './out';
 
@@ -14,7 +10,6 @@ export class UserEntity {
   private password: string;
 
   constructor(userData: UserPayloadIn) {
-    this.areFieldsFilled(userData);
     this.setId = randomUUID();
     this.setName = userData.name;
     this.setEmail = userData.email;
@@ -91,13 +86,5 @@ export class UserEntity {
       name: this.getName,
       password: this.getPassword,
     };
-  }
-
-  private areFieldsFilled(userData: UserPayloadIn) {
-    for (const field in userData) {
-      if (!field) {
-        throw new NotFilledFieldsException(field);
-      }
-    }
   }
 }
