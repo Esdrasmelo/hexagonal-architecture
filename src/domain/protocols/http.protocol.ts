@@ -1,8 +1,8 @@
 import { InternalServerError } from '../exceptions/internal-server-error.exception';
 
 export type HttpResponse = {
-  status: number;
-  body?: any;
+  statusCode: number;
+  body?: object;
 };
 
 export type HttpRequest = {
@@ -10,21 +10,21 @@ export type HttpRequest = {
 };
 
 export const ok = (data: HttpRequest): HttpResponse => ({
-  status: 200,
+  statusCode: 200,
   body: data,
 });
 
 export const badRequest = (error: Error): HttpResponse => ({
-  status: 400,
+  statusCode: 400,
   body: error,
 });
 
 export const notFound = (error: Error): HttpResponse => ({
-  status: 404,
+  statusCode: 404,
   body: error,
 });
 
 export const internalServerError = (): HttpResponse => ({
-  status: 500,
+  statusCode: 500,
   body: new InternalServerError(),
 });
